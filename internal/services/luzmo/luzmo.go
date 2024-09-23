@@ -3,7 +3,7 @@ package services
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strings"
 	"terraform-provider-luzmo/internal/mappers"
@@ -31,7 +31,7 @@ func NewLuzmoService(apiKey string, apiToken string, apiVersion string) (*LuzmoS
 	return &LuzmoService{
 		ApiKey:     apiKey,
 		ApiToken:   apiToken,
-		ApiVersion: DefaultApiVersion,
+		ApiVersion: apiVersion,
 		HttpClient: &http.Client{},
 
 		Mapper: mappers.Mapper{},
@@ -57,7 +57,7 @@ func (ls *LuzmoService) doRequest(path string, payload interface{}) ([]byte, err
 	}
 	defer res.Body.Close()
 
-	body, err := ioutil.ReadAll(res.Body)
+	body, err := io.ReadAll(res.Body)
 	if err != nil {
 		return nil, err
 	}

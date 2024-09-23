@@ -1,0 +1,283 @@
+{
+    "version": "0.1.89",
+    "syncScreenModes": true,
+    "datasetLinks": {},
+    "views": [
+        {
+            "screenModus": "desktop",
+            "options": {
+                "share": {
+                    "poweredBy": true
+                },
+                "theme": {
+                    "id": "default"
+                },
+                "alertingEnabled": true
+            },
+            "filterGroups": [],
+            "items": [
+                {
+                    "id": "433721df-b951-420a-b9ac-80a325b348cc",
+                    "type": "evolution-number",
+                    "position": {
+                        "sizeX": 10,
+                        "sizeY": 13,
+                        "row": 0,
+                        "col": 0
+                    },
+                    "title": {},
+                    "options": {
+                        "showTitle": true,
+                        "showSubtitle": false,
+                        "subtitle": {},
+                        "showImage": false,
+                        "imageMode": "icon",
+                        "imageSize": 40,
+                        "imageAsBackground": false,
+                        "imageRounded": false,
+                        "imageColor": "#5A5A5A",
+                        "imageBackgroundOpacity": 50,
+                        "titlePosition": "top",
+                        "subtitlePosition": "bottom",
+                        "imagePosition": "left",
+                        "horizontalAlignment": "center",
+                        "verticalAlignment": "middle",
+                        "evolutionGraphDisplay": "background",
+                        "evolutionGraphType": "area",
+                        "evolutionGraphOpacity": 35,
+                        "evolutionGraphInterpolation": "linear",
+                        "evolutionColor": "normal",
+                        "link": {
+                            "tooltip": {}
+                        },
+                        "interactivity": {
+                            "availableExportTypes": [
+                                "xlsx",
+                                "csv",
+                                "png"
+                            ],
+                            "customEvents": null,
+                            "exportTypes": [
+                                "xlsx",
+                                "csv",
+                                "png"
+                            ],
+                            "urlConfig": {
+                                "target": "_blank",
+                                "url": null
+                            }
+                        },
+                        "display": {
+                            "title": false
+                        },
+                        "missingValue": {
+                            "type": "no"
+                        },
+                        "title": {
+                            "en": "Number with evolution"
+                        }
+                    },
+                    "content": {},
+                    "slots": [
+                        {
+                            "name": "measure",
+                            "content": []
+                        },
+                        {
+                            "name": "evolution",
+                            "content": []
+                        }
+                    ],
+                    "source": "user",
+                    "aichartId": null
+                }
+            ]
+        },
+        {
+            "screenModus": "tablet",
+            "options": {
+                "share": {
+                    "poweredBy": false
+                },
+                "theme": {
+                    "id": "default"
+                },
+                "alertingEnabled": true
+            },
+            "filterGroups": [],
+            "items": [
+                {
+                    "id": "433721df-b951-420a-b9ac-80a325b348cc",
+                    "type": "evolution-number",
+                    "position": {
+                        "sizeX": 16,
+                        "sizeY": 13,
+                        "row": 0,
+                        "col": 0
+                    },
+                    "title": {},
+                    "options": {
+                        "showTitle": true,
+                        "showSubtitle": false,
+                        "subtitle": {},
+                        "showImage": false,
+                        "imageMode": "icon",
+                        "imageSize": 40,
+                        "imageAsBackground": false,
+                        "imageRounded": false,
+                        "imageColor": "#5A5A5A",
+                        "imageBackgroundOpacity": 50,
+                        "titlePosition": "top",
+                        "subtitlePosition": "bottom",
+                        "imagePosition": "left",
+                        "horizontalAlignment": "center",
+                        "verticalAlignment": "middle",
+                        "evolutionGraphDisplay": "background",
+                        "evolutionGraphType": "area",
+                        "evolutionGraphOpacity": 35,
+                        "evolutionGraphInterpolation": "linear",
+                        "evolutionColor": "normal",
+                        "link": {
+                            "tooltip": {}
+                        },
+                        "interactivity": {
+                            "availableExportTypes": [
+                                "xlsx",
+                                "csv",
+                                "png"
+                            ],
+                            "customEvents": null,
+                            "exportTypes": [
+                                "xlsx",
+                                "csv",
+                                "png"
+                            ],
+                            "urlConfig": {
+                                "target": "_blank",
+                                "url": null
+                            }
+                        },
+                        "display": {
+                            "title": false
+                        },
+                        "missingValue": {
+                            "type": "no"
+                        },
+                        "title": {
+                            "en": "Number with evolution"
+                        }
+                    },
+                    "content": {},
+                    "slots": [
+                        {
+                            "name": "measure",
+                            "content": []
+                        },
+                        {
+                            "name": "evolution",
+                            "content": []
+                        }
+                    ],
+                    "source": "user",
+                    "aichartId": null
+                }
+            ]
+        },
+        {
+            "screenModus": "mobile",
+            "options": {
+                "share": {
+                    "poweredBy": false
+                },
+                "theme": {
+                    "id": "default"
+                },
+                "alertingEnabled": true
+            },
+            "filterGroups": [],
+            "items": [
+                {
+                    "id": "433721df-b951-420a-b9ac-80a325b348cc",
+                    "type": "evolution-number",
+                    "position": {
+                        "sizeX": 6,
+                        "sizeY": 13,
+                        "row": 0,
+                        "col": 0
+                    },
+                    "title": {},
+                    "options": {
+                        "showTitle": true,
+                        "showSubtitle": false,
+                        "subtitle": {},
+                        "showImage": false,
+                        "imageMode": "icon",
+                        "imageSize": 40,
+                        "imageAsBackground": false,
+                        "imageRounded": false,
+                        "imageColor": "#5A5A5A",
+                        "imageBackgroundOpacity": 50,
+                        "titlePosition": "top",
+                        "subtitlePosition": "bottom",
+                        "imagePosition": "left",
+                        "horizontalAlignment": "center",
+                        "verticalAlignment": "middle",
+                        "evolutionGraphDisplay": "background",
+                        "evolutionGraphType": "area",
+                        "evolutionGraphOpacity": 35,
+                        "evolutionGraphInterpolation": "linear",
+                        "evolutionColor": "normal",
+                        "link": {
+                            "tooltip": {}
+                        },
+                        "interactivity": {
+                            "availableExportTypes": [
+                                "xlsx",
+                                "csv",
+                                "png"
+                            ],
+                            "customEvents": null,
+                            "exportTypes": [
+                                "xlsx",
+                                "csv",
+                                "png"
+                            ],
+                            "urlConfig": {
+                                "target": "_blank",
+                                "url": null
+                            }
+                        },
+                        "display": {
+                            "title": false
+                        },
+                        "missingValue": {
+                            "type": "no"
+                        },
+                        "title": {
+                            "en": "Number with evolution"
+                        }
+                    },
+                    "content": {},
+                    "slots": [
+                        {
+                            "name": "measure",
+                            "content": []
+                        },
+                        {
+                            "name": "evolution",
+                            "content": []
+                        }
+                    ],
+                    "source": "user",
+                    "aichartId": null
+                }
+            ]
+        }
+    ],
+    "parameters": [],
+    "timezone": {
+        "type": "fixed",
+        "id": "Europe/Madrid"
+    },
+    "filters": {}
+}

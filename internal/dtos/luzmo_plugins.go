@@ -15,13 +15,14 @@ type LuzmoPluginDTO struct {
 	Search          bool              `json:"search"`
 	Public          bool              `json:"public"`
 	Reviewed        bool              `json:"reviewed"`
+	Pushdown        *bool             `json:"pushdown"`
 
-	SupportsLike          *bool `json:"supports_like"`
-	SupportsDistinctcount *bool `json:"supports_distinctcount"`
-	SupportsOrderLimit    *bool `json:"supports_order_limit"`
-	SupportsJoin          *bool `json:"supports_join"`
-	SupportsSql           *bool `json:"supports_sql"`
-	Pushdown              *bool `json:"pushdown"`
+	SupportsLike          bool `json:"supports_like"`
+	SupportsDistinctcount bool `json:"supports_distinctcount"`
+	SupportsOrderLimit    bool `json:"supports_order_limit"`
+	SupportsJoin          bool `json:"supports_join"`
+	SupportsSql           bool `json:"supports_sql"`
+	SupportsNestedFilters bool `json:"supports_nested_filters"`
 }
 
 type LuzmoCreatePluginDTO struct {
@@ -32,11 +33,12 @@ type LuzmoCreatePluginDTO struct {
 	Url                   *string           `json:"url"`
 	ProtocolVersion       string            `json:"protocol_version"`
 	Pushdown              *bool             `json:"pushdown"`
-	SupportsLike          *bool             `json:"supports_like"`
-	SupportsDistinctcount *bool             `json:"supports_distinctcount"`
-	SupportsOrderLimit    *bool             `json:"supports_order_limit"`
-	SupportsJoin          *bool             `json:"supports_join"`
-	SupportsSql           *bool             `json:"supports_sql"`
+	SupportsLike          bool              `json:"supports_like"`
+	SupportsDistinctcount bool              `json:"supports_distinctcount"`
+	SupportsOrderLimit    bool              `json:"supports_order_limit"`
+	SupportsJoin          bool              `json:"supports_join"`
+	SupportsSql           bool              `json:"supports_sql"`
+	SupportsNestedFilters bool              `json:"supports_nested_filters"`
 }
 
 type LuzmoUpdatePluginDTO struct {
@@ -46,9 +48,10 @@ type LuzmoUpdatePluginDTO struct {
 	Url                   *string           `json:"url"`
 	ProtocolVersion       string            `json:"protocol_version"`
 	Pushdown              *bool             `json:"pushdown"`
-	SupportsLike          *bool             `json:"supports_like"`
-	SupportsDistinctcount *bool             `json:"supports_distinctcount"`
-	SupportsOrderLimit    *bool             `json:"supports_order_limit"`
-	SupportsJoin          *bool             `json:"supports_join"`
-	SupportsSql           *bool             `json:"supports_sql"`
+	SupportsLike          bool              `json:"supports_like"`
+	SupportsDistinctcount bool              `json:"supports_distinctcount"`
+	SupportsOrderLimit    bool              `json:"supports_order_limit"`
+	SupportsJoin          bool              `json:"supports_join"`
+	SupportsSql           bool              `json:"supports_sql"`
+	SupportsNestedFilters bool              `json:"supports_nested_filters"`
 }

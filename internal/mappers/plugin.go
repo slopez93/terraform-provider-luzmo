@@ -21,6 +21,7 @@ func (m *Mapper) MapToPlugin(pluginDto dtos.LuzmoPluginDTO) (*models.Plugin, err
 		SupportsOrderLimit:    pluginDto.SupportsOrderLimit,
 		SupportsJoin:          pluginDto.SupportsJoin,
 		SupportsSql:           pluginDto.SupportsSql,
+		SupportsNestedFilters: pluginDto.SupportsNestedFilters,
 	}
 
 	return &plugin, nil

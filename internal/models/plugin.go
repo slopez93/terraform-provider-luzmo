@@ -18,11 +18,12 @@ type Plugin struct {
 	Slug                  string
 	Pushdown              bool
 	ProtocolVersion       ProtocolVersion
-	SupportsLike          *bool
-	SupportsDistinctcount *bool
-	SupportsOrderLimit    *bool
-	SupportsJoin          *bool
-	SupportsSql           *bool
+	SupportsLike          bool
+	SupportsDistinctcount bool
+	SupportsOrderLimit    bool
+	SupportsJoin          bool
+	SupportsSql           bool
+	SupportsNestedFilters bool
 }
 
 type NewPluginParams struct {
@@ -34,11 +35,12 @@ type NewPluginParams struct {
 	Slug                  string
 	Pushdown              *bool
 	ProtocolVersion       ProtocolVersion
-	SupportsLike          *bool
-	SupportsDistinctcount *bool
-	SupportsOrderLimit    *bool
-	SupportsJoin          *bool
-	SupportsSql           *bool
+	SupportsLike          bool
+	SupportsDistinctcount bool
+	SupportsOrderLimit    bool
+	SupportsJoin          bool
+	SupportsSql           bool
+	SupportsNestedFilters bool
 }
 
 func NewPlugin(params NewPluginParams) *Plugin {
@@ -57,6 +59,7 @@ func NewPlugin(params NewPluginParams) *Plugin {
 		SupportsOrderLimit:    params.SupportsOrderLimit,
 		SupportsJoin:          params.SupportsJoin,
 		SupportsSql:           params.SupportsSql,
+		SupportsNestedFilters: params.SupportsNestedFilters,
 	}
 
 	if params.Pushdown == nil {

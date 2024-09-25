@@ -29,6 +29,7 @@ Manages a Plugin.
 - `supports_distinctcount` (Boolean) The supports_distinctcount of the plugin.
 - `supports_join` (Boolean) The supports_join of the plugin.
 - `supports_like` (Boolean) The pushdown of the plugin.
+- `supports_nested_filters` (Boolean) The supports_nested_filters of the plugin
 - `supports_order_limit` (Boolean) The supports_order_limit of the plugin.
 - `supports_sql` (Boolean) The supports_sql of the plugin.
 - `url` (String) The URL of the plugin.

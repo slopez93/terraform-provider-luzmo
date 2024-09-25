@@ -30,6 +30,7 @@ func (ls *LuzmoService) CreatePlugin(plugin models.Plugin) (*models.Plugin, erro
 			SupportsOrderLimit:    plugin.SupportsOrderLimit,
 			SupportsJoin:          plugin.SupportsJoin,
 			SupportsSql:           plugin.SupportsSql,
+			SupportsNestedFilters: plugin.SupportsNestedFilters,
 		},
 	}
 
@@ -72,6 +73,7 @@ func (ls *LuzmoService) UpdatePlugin(plugin models.Plugin) (*models.Plugin, erro
 			SupportsOrderLimit:    plugin.SupportsOrderLimit,
 			SupportsJoin:          plugin.SupportsJoin,
 			SupportsSql:           plugin.SupportsSql,
+			SupportsNestedFilters: plugin.SupportsNestedFilters,
 		},
 	}
 

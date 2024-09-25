@@ -9,6 +9,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/path"
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/types"
@@ -40,6 +41,7 @@ type PluginResourceModel struct {
 	SupportsOrderLimit    types.Bool   `tfsdk:"supports_order_limit"`
 	SupportsJoin          types.Bool   `tfsdk:"supports_join"`
 	SupportsSql           types.Bool   `tfsdk:"supports_sql"`
+	SupportsNestedFilters types.Bool   `tfsdk:"supports_nested_filters"`
 }
 
 func NewPluginResource() resource.Resource {
@@ -91,23 +93,39 @@ func (r *PluginResource) Schema(_ context.Context, _ resource.SchemaRequest, res
 			},
 			"supports_like": schema.BoolAttribute{
 				Description: "The pushdown of the plugin.",
+				Computed:    true,
 				Optional:    true,
+				Default:     booldefault.StaticBool(false),
 			},
 			"supports_distinctcount": schema.BoolAttribute{
 				Description: "The supports_distinctcount of the plugin.",
+				Computed:    true,
 				Optional:    true,
+				Default:     booldefault.StaticBool(false),
 			},
 			"supports_order_limit": schema.BoolAttribute{
 				Description: "The supports_order_limit of the plugin.",
+				Computed:    true,
 				Optional:    true,
+				Default:     booldefault.StaticBool(false),
 			},
 			"supports_join": schema.BoolAttribute{
 				Description: "The supports_join of the plugin.",
+				Computed:    true,
 				Optional:    true,
+				Default:     booldefault.StaticBool(false),
 			},
 			"supports_sql": schema.BoolAttribute{
 				Description: "The supports_sql of the plugin.",
+				Computed:    true,
 				Optional:    true,
+				Default:     booldefault.StaticBool(false),
+			},
+			"supports_nested_filters": schema.BoolAttribute{
+				Description: "The supports_nested_filters of the plugin",
+				Computed:    true,
+				Optional:    true,
+				Default:     booldefault.StaticBool(false),
 			},
 		},
 	}
@@ -131,11 +149,12 @@ func (r *PluginResource) Create(ctx context.Context, req resource.CreateRequest,
 		Url:                   plan.Url.ValueStringPointer(),
 		Pushdown:              plan.Pushdown.ValueBoolPointer(),
 		ProtocolVersion:       models.ProtocolVersion(plan.ProtocolVersion.ValueString()),
-		SupportsLike:          plan.SupportsLike.ValueBoolPointer(),
-		SupportsDistinctcount: plan.SupportsDistinctcount.ValueBoolPointer(),
-		SupportsOrderLimit:    plan.SupportsOrderLimit.ValueBoolPointer(),
-		SupportsJoin:          plan.SupportsJoin.ValueBoolPointer(),
-		SupportsSql:           plan.SupportsSql.ValueBoolPointer(),
+		SupportsLike:          plan.SupportsLike.ValueBool(),
+		SupportsDistinctcount: plan.SupportsDistinctcount.ValueBool(),
+		SupportsOrderLimit:    plan.SupportsOrderLimit.ValueBool(),
+		SupportsJoin:          plan.SupportsJoin.ValueBool(),
+		SupportsSql:           plan.SupportsSql.ValueBool(),
+		SupportsNestedFilters: plan.SupportsNestedFilters.ValueBool(),
 	})
 
 	responseDashboard, err := r.lzService.CreatePlugin(*plugin)
@@ -183,11 +202,12 @@ func (r *PluginResource) Read(ctx context.Context, req resource.ReadRequest, res
 	state.Url = types.StringPointerValue(plugin.Url)
 	state.Pushdown = types.BoolValue(plugin.Pushdown)
 	state.ProtocolVersion = types.StringValue(string(plugin.ProtocolVersion))
-	state.SupportsLike = types.BoolPointerValue(plugin.SupportsLike)
-	state.SupportsDistinctcount = types.BoolPointerValue(plugin.SupportsDistinctcount)
-	state.SupportsOrderLimit = types.BoolPointerValue(plugin.SupportsOrderLimit)
-	state.SupportsJoin = types.BoolPointerValue(plugin.SupportsJoin)
-	state.SupportsSql = types.BoolPointerValue(plugin.SupportsSql)
+	state.SupportsLike = types.BoolValue(plugin.SupportsLike)
+	state.SupportsDistinctcount = types.BoolValue(plugin.SupportsDistinctcount)
+	state.SupportsOrderLimit = types.BoolValue(plugin.SupportsOrderLimit)
+	state.SupportsJoin = types.BoolValue(plugin.SupportsJoin)
+	state.SupportsSql = types.BoolValue(plugin.SupportsSql)
+	state.SupportsNestedFilters = types.BoolValue(plugin.SupportsNestedFilters)
 
 	// Set refreshed state
 	diags = resp.State.Set(ctx, &state)
@@ -215,11 +235,12 @@ func (r *PluginResource) Update(ctx context.Context, req resource.UpdateRequest,
 		Url:                   plan.Url.ValueStringPointer(),
 		Pushdown:              plan.Pushdown.ValueBoolPointer(),
 		ProtocolVersion:       models.ProtocolVersion(plan.ProtocolVersion.ValueString()),
-		SupportsLike:          plan.SupportsLike.ValueBoolPointer(),
-		SupportsDistinctcount: plan.SupportsDistinctcount.ValueBoolPointer(),
-		SupportsOrderLimit:    plan.SupportsOrderLimit.ValueBoolPointer(),
-		SupportsJoin:          plan.SupportsJoin.ValueBoolPointer(),
-		SupportsSql:           plan.SupportsSql.ValueBoolPointer(),
+		SupportsLike:          plan.SupportsLike.ValueBool(),
+		SupportsDistinctcount: plan.SupportsDistinctcount.ValueBool(),
+		SupportsOrderLimit:    plan.SupportsOrderLimit.ValueBool(),
+		SupportsJoin:          plan.SupportsJoin.ValueBool(),
+		SupportsSql:           plan.SupportsSql.ValueBool(),
+		SupportsNestedFilters: plan.SupportsNestedFilters.ValueBool(),
 	})
 	updatedPlugin, err := r.lzService.UpdatePlugin(*plugin)
 	if err != nil {

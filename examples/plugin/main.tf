@@ -21,9 +21,10 @@ resource "luzmo_plugin" "plugin_example" {
   protocol_version = "3.0.0"
   pushdown         = true
 
-  supports_like          = true
-  supports_distinctcount = false
-  supports_order_limit   = false
-  supports_join          = false
-  supports_sql           = false
+  supports_like           = true
+  supports_distinctcount  = true
+  supports_order_limit    = true
+  supports_join           = true
+  supports_sql            = true
+  supports_nested_filters = true
 }

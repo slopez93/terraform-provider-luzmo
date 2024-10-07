@@ -3,6 +3,7 @@ package provider
 import (
 	"context"
 	"fmt"
+	"terraform-provider-luzmo/internal/dtos"
 	"terraform-provider-luzmo/internal/models"
 	services "terraform-provider-luzmo/internal/services/luzmo"
 
@@ -12,7 +13,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
@@ -25,23 +25,6 @@ var (
 
 type PluginResource struct {
 	lzService *services.LuzmoService
-}
-
-type PluginResourceModel struct {
-	ID                    types.String `tfsdk:"id"`
-	Name                  types.String `tfsdk:"name"`
-	Description           types.String `tfsdk:"description"`
-	Slug                  types.String `tfsdk:"slug"`
-	BaseUrl               types.String `tfsdk:"base_url"`
-	Url                   types.String `tfsdk:"url"`
-	Pushdown              types.Bool   `tfsdk:"pushdown"`
-	ProtocolVersion       types.String `tfsdk:"protocol_version"`
-	SupportsLike          types.Bool   `tfsdk:"supports_like"`
-	SupportsDistinctcount types.Bool   `tfsdk:"supports_distinctcount"`
-	SupportsOrderLimit    types.Bool   `tfsdk:"supports_order_limit"`
-	SupportsJoin          types.Bool   `tfsdk:"supports_join"`
-	SupportsSql           types.Bool   `tfsdk:"supports_sql"`
-	SupportsNestedFilters types.Bool   `tfsdk:"supports_nested_filters"`
 }
 
 func NewPluginResource() resource.Resource {
@@ -133,7 +116,7 @@ func (r *PluginResource) Schema(_ context.Context, _ resource.SchemaRequest, res
 
 // Create implements resource.Resource.
 func (r *PluginResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
-	var plan PluginResourceModel
+	var plan dtos.PluginResourceModel
 	diags := req.Plan.Get(ctx, &plan)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
@@ -157,7 +140,7 @@ func (r *PluginResource) Create(ctx context.Context, req resource.CreateRequest,
 		SupportsNestedFilters: plan.SupportsNestedFilters.ValueBool(),
 	})
 
-	responseDashboard, err := r.lzService.CreatePlugin(*plugin)
+	pluginResponse, err := r.lzService.CreatePlugin(*plugin)
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Error Creating Luzmo Plugin",
@@ -166,7 +149,7 @@ func (r *PluginResource) Create(ctx context.Context, req resource.CreateRequest,
 		return
 	}
 
-	plan.ID = types.StringValue(responseDashboard.Id)
+	plan = *r.lzService.Mapper.MapToPluginResource(*pluginResponse)
 
 	// Set state to fully populated data
 	diags = resp.State.Set(ctx, plan)
@@ -178,7 +161,7 @@ func (r *PluginResource) Create(ctx context.Context, req resource.CreateRequest,
 
 // Read implements resource.Resource.
 func (r *PluginResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
-	var state PluginResourceModel
+	var state dtos.PluginResourceModel
 	diags := resp.State.Get(ctx, &state)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
@@ -194,20 +177,7 @@ func (r *PluginResource) Read(ctx context.Context, req resource.ReadRequest, res
 		return
 	}
 
-	state.ID = types.StringValue(plugin.Id)
-	state.Name = types.StringValue(plugin.Name)
-	state.Description = types.StringValue(plugin.Description)
-	state.Slug = types.StringValue(plugin.Slug)
-	state.BaseUrl = types.StringValue(plugin.BaseUrl)
-	state.Url = types.StringPointerValue(plugin.Url)
-	state.Pushdown = types.BoolValue(plugin.Pushdown)
-	state.ProtocolVersion = types.StringValue(string(plugin.ProtocolVersion))
-	state.SupportsLike = types.BoolValue(plugin.SupportsLike)
-	state.SupportsDistinctcount = types.BoolValue(plugin.SupportsDistinctcount)
-	state.SupportsOrderLimit = types.BoolValue(plugin.SupportsOrderLimit)
-	state.SupportsJoin = types.BoolValue(plugin.SupportsJoin)
-	state.SupportsSql = types.BoolValue(plugin.SupportsSql)
-	state.SupportsNestedFilters = types.BoolValue(plugin.SupportsNestedFilters)
+	state = *r.lzService.Mapper.MapToPluginResource(*plugin)
 
 	// Set refreshed state
 	diags = resp.State.Set(ctx, &state)
@@ -219,7 +189,7 @@ func (r *PluginResource) Read(ctx context.Context, req resource.ReadRequest, res
 
 // Update implements resource.Resource.
 func (r *PluginResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	var plan PluginResourceModel
+	var plan dtos.PluginResourceModel
 	diags := req.Plan.Get(ctx, &plan)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
@@ -251,7 +221,7 @@ func (r *PluginResource) Update(ctx context.Context, req resource.UpdateRequest,
 		return
 	}
 
-	plan.ID = types.StringValue(updatedPlugin.Id)
+	plan = *r.lzService.Mapper.MapToPluginResource(*updatedPlugin)
 
 	// Set refreshed state
 	diags = resp.State.Set(ctx, plan)
@@ -264,7 +234,7 @@ func (r *PluginResource) Update(ctx context.Context, req resource.UpdateRequest,
 // Delete implements resource.Resource.
 func (r *PluginResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
 	// Retrieve values from state
-	var state PluginResourceModel
+	var state dtos.PluginResourceModel
 	diags := req.State.Get(ctx, &state)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {

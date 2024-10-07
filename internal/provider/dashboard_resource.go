@@ -3,6 +3,7 @@ package provider
 import (
 	"context"
 	"fmt"
+	"terraform-provider-luzmo/internal/dtos"
 	"terraform-provider-luzmo/internal/models"
 	services "terraform-provider-luzmo/internal/services/luzmo"
 
@@ -11,7 +12,6 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
-	"github.com/hashicorp/terraform-plugin-framework/types"
 	"github.com/hashicorp/terraform-plugin-log/tflog"
 )
 
@@ -24,15 +24,6 @@ var (
 
 type DashboardResource struct {
 	lzService *services.LuzmoService
-}
-
-type DashboardResourceModel struct {
-	ID          types.String `tfsdk:"id"`
-	Name        types.String `tfsdk:"name"`
-	Description types.String `tfsdk:"description"`
-	Subtitle    types.String `tfsdk:"subtitle"`
-	Contents    types.String `tfsdk:"contents"`
-	Css         types.String `tfsdk:"css"`
 }
 
 func NewDashboardResource() resource.Resource {
@@ -80,7 +71,7 @@ func (r *DashboardResource) Schema(_ context.Context, _ resource.SchemaRequest, 
 
 // Create implements resource.Resource.
 func (r *DashboardResource) Create(ctx context.Context, req resource.CreateRequest, resp *resource.CreateResponse) {
-	var plan DashboardResourceModel
+	var plan dtos.DashboardResourceModel
 	diags := req.Plan.Get(ctx, &plan)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
@@ -112,8 +103,7 @@ func (r *DashboardResource) Create(ctx context.Context, req resource.CreateReque
 		return
 	}
 
-	plan.ID = types.StringValue(responseDashboard.Id)
-	plan.Contents = types.StringValue(responseDashboard.NormalizeContents())
+	plan = *r.lzService.Mapper.MapToDashboardResource(*responseDashboard)
 
 	// Set state to fully populated data
 	diags = resp.State.Set(ctx, plan)
@@ -125,7 +115,7 @@ func (r *DashboardResource) Create(ctx context.Context, req resource.CreateReque
 
 // Read implements resource.Resource.
 func (r *DashboardResource) Read(ctx context.Context, req resource.ReadRequest, resp *resource.ReadResponse) {
-	var state DashboardResourceModel
+	var state dtos.DashboardResourceModel
 	diags := resp.State.Get(ctx, &state)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
@@ -141,14 +131,7 @@ func (r *DashboardResource) Read(ctx context.Context, req resource.ReadRequest, 
 		return
 	}
 
-	state.ID = types.StringValue(dashboard.Id)
-	state.Name = types.StringValue(dashboard.Name)
-	state.Description = types.StringValue(dashboard.Description)
-	state.Subtitle = types.StringValue(dashboard.Subtitle)
-	state.Contents = types.StringValue(dashboard.NormalizeContents())
-	if dashboard.Css != nil {
-		state.Css = types.StringValue(*dashboard.Css)
-	}
+	state = *r.lzService.Mapper.MapToDashboardResource(*dashboard)
 
 	// Set refreshed state
 	diags = resp.State.Set(ctx, &state)
@@ -160,7 +143,7 @@ func (r *DashboardResource) Read(ctx context.Context, req resource.ReadRequest, 
 
 // Update implements resource.Resource.
 func (r *DashboardResource) Update(ctx context.Context, req resource.UpdateRequest, resp *resource.UpdateResponse) {
-	var plan DashboardResourceModel
+	var plan dtos.DashboardResourceModel
 	diags := req.Plan.Get(ctx, &plan)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {
@@ -192,8 +175,7 @@ func (r *DashboardResource) Update(ctx context.Context, req resource.UpdateReque
 		return
 	}
 
-	plan.ID = types.StringValue(responseDashboard.Id)
-	plan.Contents = types.StringValue(responseDashboard.NormalizeContents())
+	plan = *r.lzService.Mapper.MapToDashboardResource(*responseDashboard)
 
 	// Set refreshed state
 	diags = resp.State.Set(ctx, plan)
@@ -206,7 +188,7 @@ func (r *DashboardResource) Update(ctx context.Context, req resource.UpdateReque
 // Delete implements resource.Resource.
 func (r *DashboardResource) Delete(ctx context.Context, req resource.DeleteRequest, resp *resource.DeleteResponse) {
 	// Retrieve values from state
-	var state DashboardResourceModel
+	var state dtos.DashboardResourceModel
 	diags := req.State.Get(ctx, &state)
 	resp.Diagnostics.Append(diags...)
 	if resp.Diagnostics.HasError() {

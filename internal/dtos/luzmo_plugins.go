@@ -1,5 +1,24 @@
 package dtos
 
+import "github.com/hashicorp/terraform-plugin-framework/types"
+
+type PluginResourceModel struct {
+	ID                    types.String `tfsdk:"id"`
+	Name                  types.String `tfsdk:"name"`
+	Description           types.String `tfsdk:"description"`
+	Slug                  types.String `tfsdk:"slug"`
+	BaseUrl               types.String `tfsdk:"base_url"`
+	Url                   types.String `tfsdk:"url"`
+	Pushdown              types.Bool   `tfsdk:"pushdown"`
+	ProtocolVersion       types.String `tfsdk:"protocol_version"`
+	SupportsLike          types.Bool   `tfsdk:"supports_like"`
+	SupportsDistinctcount types.Bool   `tfsdk:"supports_distinctcount"`
+	SupportsOrderLimit    types.Bool   `tfsdk:"supports_order_limit"`
+	SupportsJoin          types.Bool   `tfsdk:"supports_join"`
+	SupportsSql           types.Bool   `tfsdk:"supports_sql"`
+	SupportsNestedFilters types.Bool   `tfsdk:"supports_nested_filters"`
+}
+
 type LuzmoPluginDTO struct {
 	Id              string            `json:"id"`
 	Name            map[string]string `json:"name"`

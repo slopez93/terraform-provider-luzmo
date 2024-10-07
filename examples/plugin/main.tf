@@ -14,7 +14,7 @@ provider "luzmo" {
 
 resource "luzmo_plugin" "plugin_example" {
   name             = "Plugin managed by TF"
-  description      = "Plugin created by terraform provider test"
+  description      = "Plugin created by terraform provider"
   slug             = "wow"
   base_url         = "https://lansweeper.com/luzmo-plugin-test"
   url              = "https://lansweeper.com/luzmo-plugin-test/documentation"

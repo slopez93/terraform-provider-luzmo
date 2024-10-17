@@ -33,6 +33,7 @@ type luzmoProvider struct {
 type luzmoProviderConfig struct {
 	ApiKey     types.String `tfsdk:"api_key"`
 	ApiToken   types.String `tfsdk:"api_token"`
+	ApiUrl     types.String `tfsdk:"api_url"`
 	ApiVersion types.String `tfsdk:"api_version"`
 }
 
@@ -53,6 +54,10 @@ func (p *luzmoProvider) Schema(_ context.Context, _ provider.SchemaRequest, resp
 				Description: "",
 				Required:    true,
 			},
+			"api_url": schema.StringAttribute{
+				Description: "",
+				Optional:    true,
+			},
 			"api_version": schema.StringAttribute{
 				Description: "",
 				Optional:    true,
@@ -72,7 +77,7 @@ func (p *luzmoProvider) Configure(ctx context.Context, req provider.ConfigureReq
 		return
 	}
 
-	lzService, err := services.NewLuzmoService(config.ApiKey.ValueString(), config.ApiToken.ValueString(), config.ApiVersion.ValueString())
+	lzService, err := services.NewLuzmoService(config.ApiKey.ValueString(), config.ApiToken.ValueString(), config.ApiVersion.ValueString(), config.ApiUrl.ValueString())
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Unable to Create Luzmo API Client",

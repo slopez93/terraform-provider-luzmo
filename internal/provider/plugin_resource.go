@@ -196,6 +196,23 @@ func (r *PluginResource) Update(ctx context.Context, req resource.UpdateRequest,
 		return
 	}
 
+	luzmoPlugin, err := r.lzService.FindPluginById(plan.ID.ValueString())
+	if err != nil || luzmoPlugin == nil {
+		resp.Diagnostics.AddError(
+			"Error Finding Luzmo Plugin",
+			"Could not read Plugin ID "+plan.ID.ValueString()+": "+err.Error(),
+		)
+		return
+	}
+
+	if luzmoPlugin.Slug != plan.Slug.ValueString() {
+		resp.Diagnostics.AddError(
+			"Error updating Luzmo Plugin",
+			"The property 'slug' is immutable.",
+		)
+		return
+	}
+
 	plugin := models.NewPlugin(models.NewPluginParams{
 		Id:                    plan.ID.ValueString(),
 		Name:                  plan.Name.ValueString(),

@@ -46,6 +46,7 @@ Definining provider. The port should be the Clickhouse native protocol port (900
 provider "luzmo" {
   api_key           = ******
   api_token         = ******
+  api_url           = "https://example.com" # Optional: By default is https://api.luzmo.com
   api_version       = "0.1.0" # Optional: By default is 0.1.0
 }
 ```

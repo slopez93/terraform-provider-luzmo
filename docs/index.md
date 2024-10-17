@@ -22,4 +22,5 @@ description: |-
 
 ### Optional
 
+- `api_url` (String)
 - `api_version` (String)

@@ -88,9 +88,9 @@ func (ls *LuzmoService) UpdatePlugin(plugin models.Plugin) (*models.Plugin, erro
 		return nil, err
 	}
 
-	dashboardUpdated, _ := ls.Mapper.MapToPlugin(responseDTO)
+	pluginUpdated, _ := ls.Mapper.MapToPlugin(responseDTO)
 
-	return dashboardUpdated, nil
+	return pluginUpdated, nil
 }
 
 func (ls *LuzmoService) FindPluginById(id string) (*models.Plugin, error) {
@@ -113,9 +113,9 @@ func (ls *LuzmoService) FindPluginById(id string) (*models.Plugin, error) {
 		return nil, err
 	}
 
-	dashboard, _ := ls.Mapper.MapToPlugin(responseDTO.Rows[0])
+	plugin, _ := ls.Mapper.MapToPlugin(responseDTO.Rows[0])
 
-	return dashboard, nil
+	return plugin, nil
 }
 
 func (ls *LuzmoService) DeletePlugin(id string) error {

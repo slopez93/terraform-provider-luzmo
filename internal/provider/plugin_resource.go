@@ -37,7 +37,7 @@ func (r *PluginResource) Metadata(_ context.Context, req resource.MetadataReques
 
 func (r *PluginResource) Schema(_ context.Context, _ resource.SchemaRequest, resp *resource.SchemaResponse) {
 	resp.Schema = schema.Schema{
-		Description: "Manages a Plugin.",
+		Description: "Manages a plugin.",
 		Attributes: map[string]schema.Attribute{
 			"id": schema.StringAttribute{
 				Description: "String identifier of the order.",

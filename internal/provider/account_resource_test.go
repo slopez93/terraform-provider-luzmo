@@ -12,9 +12,9 @@ func testAccountResourceConfig(accountName string, provider string) string {
 	return fmt.Sprintf(
 		`%s
 		resource "luzmo_account" "account_example" {
-			name             = "%s"
-			description      = "Account created by terraform provider test"
-			provider             = "%s"
+			name             			= "%s"
+			description      			= "Account created by terraform provider test"
+			provider            		= "%s"
 		}
 		`,
 		providerConfig,
@@ -35,6 +35,7 @@ func TestAccAccountResource(t *testing.T) {
 				Check: resource.ComposeAggregateTestCheckFunc(
 					resource.TestCheckResourceAttr("luzmo_account.account_example", "name", "Account managed by TF"),
 					resource.TestCheckResourceAttr("luzmo_account.account_example", "description", "Account created by terraform provider test"),
+					resource.TestCheckResourceAttr("luzmo_account.account_example", "provider", randProvider),
 					resource.TestCheckResourceAttrSet("luzmo_account.account_example", "id"),
 				),
 			},

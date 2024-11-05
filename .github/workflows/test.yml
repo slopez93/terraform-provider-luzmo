@@ -83,7 +83,7 @@ jobs:
       - run: go mod download
       - env:
           TF_ACC: "1"
-          TF_VAR_LUZMO_API_KEY: ${{ secrets.LUZMO_API_KEY }}
-          TF_VAR_LUZMO_API_TOKEN: ${{ secrets.LUZMO_API_TOKEN }}
+          TF_VAR_luzmo_api_key: ${{ secrets.LUZMO_API_KEY }}
+          TF_VAR_luzmo_api_token: ${{ secrets.LUZMO_API_TOKEN }}
         run: go test -v -cover ./internal/provider/
         timeout-minutes: 10

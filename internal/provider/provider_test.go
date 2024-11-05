@@ -11,17 +11,17 @@ const (
 	// It is also possible to use the HASHICUPS_ environment variables instead,
 	// such as updating the Makefile and running the testing through that tool.
 	providerConfig = `
-		variable "LUZMO_API_KEY" {
+		variable "luzmo_api_key" {
 			type      = string
 			sensitive = true
 		}
-		variable "LUZMO_API_TOKEN" {
+		variable "luzmo_api_token" {
 			type      = string
 			sensitive = true
 		}
 		provider "luzmo" {
-			api_key     = var.LUZMO_API_KEY
-			api_token   = var.LUZMO_API_TOKEN
+			api_key     = var.luzmo_api_key
+			api_token   = var.luzmo_api_token
 			api_version = "0.1.0"
 		}
 	`

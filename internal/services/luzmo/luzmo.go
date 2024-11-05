@@ -13,6 +13,8 @@ const DefaultApiUrl string = "https://api.luzmo.com"
 const DefaultApiVersion string = "0.1.0"
 const DashboardApiPath string = "securable"
 const PluginApiPath string = "plugin"
+const AccountApiPath string = "account"
+const DatasetApiPath string = "securable"
 
 type LuzmoService struct {
 	ApiKey     string

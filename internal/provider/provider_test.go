@@ -12,8 +12,8 @@ const (
 	// such as updating the Makefile and running the testing through that tool.
 	providerConfig = `
 		provider "luzmo" {
-			api_key     = "test_api_key"
-			api_token   = "test_api_token"
+			api_key     = "bc088ce2-5440-41ba-bf85-c3fc2e0ff6a3"
+			api_token   = "DVkbaZbf0eLHi0GvMEIdMAuMfvzm8Q1UawSO4WkBUUkYAvdgXDERyW6ShFDN2Xu1V4skucIe5vLocnIaTYfDnIeXCiJFRiowpRbOPPSdjy2Cx4QMAOZjrgmhx8N4f51KU9Y8LETPJNpMyAk7EECfY6"
 			api_version = "0.1.0"
 		}
 	`

@@ -12,8 +12,8 @@ const (
 	// such as updating the Makefile and running the testing through that tool.
 	providerConfig = `
 		provider "luzmo" {
-			api_key     = "test_key"
-			api_token   = "test_token"
+			api_key     = var.luzmo_api_key
+			api_token   = var.luzmo_api_token
 			api_version = "0.1.0"
 		}
 	`

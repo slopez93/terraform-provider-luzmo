@@ -11,6 +11,7 @@ import (
 	"github.com/hashicorp/terraform-plugin-framework/resource"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/booldefault"
+	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int32default"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/int64default"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/planmodifier"
 	"github.com/hashicorp/terraform-plugin-framework/resource/schema/stringplanmodifier"
@@ -73,7 +74,7 @@ func (r *AccountResource) Schema(_ context.Context, _ resource.SchemaRequest, re
 				Optional:    true,
 				Default:     booldefault.StaticBool(false),
 			},
-			"port": schema.Int32Attribute{
+			"port": schema.StringAttribute{
 				Description: "Port of this connection. For relational database connections, this corresponds to the port of the database.",
 				Optional:    true,
 			},
@@ -92,6 +93,8 @@ func (r *AccountResource) Schema(_ context.Context, _ resource.SchemaRequest, re
 			"datasets_meta_sync_interval": schema.Int32Attribute{
 				Description: " Metadata sync interval in hours for connection datasets with meta_sync_inherit=true.",
 				Optional:    true,
+				Computed:    true,
+				Default:     int32default.StaticInt32(1),
 			},
 		},
 	}
@@ -114,7 +117,7 @@ func (r *AccountResource) Create(ctx context.Context, req resource.CreateRequest
 		Scope:                    plan.Scope.ValueStringPointer(),
 		Host:                     plan.Host.ValueStringPointer(),
 		Active:                   plan.Active.ValueBool(),
-		Port:                     plan.Port.ValueInt32Pointer(),
+		Port:                     plan.Port.ValueStringPointer(),
 		Cache:                    plan.Cache.ValueInt64(),
 		DatasetsMetaSyncEnabled:  plan.DatasetsMetaSyncEnabled.ValueBool(),
 		DatasetsMetaSyncInterval: plan.DatasetsMetaSyncInterval.ValueInt32Pointer(),
@@ -193,7 +196,7 @@ func (r *AccountResource) Update(ctx context.Context, req resource.UpdateRequest
 		Scope:                    plan.Scope.ValueStringPointer(),
 		Host:                     plan.Host.ValueStringPointer(),
 		Active:                   plan.Active.ValueBool(),
-		Port:                     plan.Port.ValueInt32Pointer(),
+		Port:                     plan.Port.ValueStringPointer(),
 		Cache:                    plan.Cache.ValueInt64(),
 		DatasetsMetaSyncEnabled:  plan.DatasetsMetaSyncEnabled.ValueBool(),
 		DatasetsMetaSyncInterval: plan.DatasetsMetaSyncInterval.ValueInt32Pointer(),

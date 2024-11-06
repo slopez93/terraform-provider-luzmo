@@ -9,12 +9,20 @@ import (
 )
 
 func testAccountResourceConfig(accountName string, provider string) string {
+
 	return fmt.Sprintf(
 		`%s
 		resource "luzmo_account" "account_example" {
 			name             			= "%s"
 			description      			= "Account created by terraform provider test"
-			provider_name            		= "%s"
+			provider_name            	= "%s"
+			scope						= "scope" 
+			host						= "host"
+			active						= false
+			port						= "8080"
+			cache						= 0
+			datasets_meta_sync_enabled	= false
+			datasets_meta_sync_interval	= 1
 		}
 		`,
 		providerConfig,

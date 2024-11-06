@@ -29,19 +29,7 @@ type NewAccountParams struct {
 }
 
 func NewAccount(params NewAccountParams) *Account {
-	account := Account{
-		Id:                       params.Id,
-		Name:                     params.Name,
-		Description:              params.Description,
-		ProviderName:             params.ProviderName,
-		Active:                   params.Active,
-		Cache:                    params.Cache,
-		DatasetsMetaSyncEnabled:  params.DatasetsMetaSyncEnabled,
-		Scope:                    params.Scope,
-		Host:                     params.Host,
-		Port:                     params.Port,
-		DatasetsMetaSyncInterval: params.DatasetsMetaSyncInterval,
-	}
+	account := Account(params)
 
 	return &account
 }

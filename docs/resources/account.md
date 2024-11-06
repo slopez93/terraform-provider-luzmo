@@ -28,7 +28,7 @@ Manages a account.
 - `datasets_meta_sync_enabled` (Boolean) Indicates whether automatic metadata sync is enabled for all connection datasets with meta_sync_inherit=true.
 - `datasets_meta_sync_interval` (Number) Metadata sync interval in hours for connection datasets with meta_sync_inherit=true.
 - `host` (String) Endpoint of this account. For relational database connections, this corresponds to the hostname of the database.
-- `port` (Number) Port of this connection. For relational database connections, this corresponds to the port of the database.
+- `port` (String) Port of this connection. For relational database connections, this corresponds to the port of the database.
 - `scope` (String) Provider-specific description of services used.
 
 ### Read-Only

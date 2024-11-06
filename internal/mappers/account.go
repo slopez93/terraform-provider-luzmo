@@ -17,10 +17,10 @@ func (m *Mapper) MapToAccount(accountDto dtos.LuzmoAccountDTO) (*models.Account,
 		Scope:                    accountDto.Scope,
 		Host:                     accountDto.Host,
 		Active:                   accountDto.Active,
-		Port:                     accountDto.Port,
 		Cache:                    accountDto.Cache,
 		DatasetsMetaSyncEnabled:  accountDto.DatasetsMetaSyncEnabled,
 		DatasetsMetaSyncInterval: accountDto.DatasetsMetaSyncInterval,
+		Port:                     accountDto.Port,
 	}
 
 	return &account, nil
@@ -38,19 +38,19 @@ func (m *Mapper) MapToAccountResource(account models.Account) *dtos.AccountResou
 	accountResource.DatasetsMetaSyncEnabled = types.BoolValue(account.DatasetsMetaSyncEnabled)
 
 	if account.Scope != nil {
-		accountResource.Scope = types.StringValue(*account.Scope)
+		accountResource.Scope = types.StringPointerValue(account.Scope)
 	}
 
 	if account.Host != nil {
-		accountResource.Host = types.StringValue(*account.Host)
+		accountResource.Host = types.StringPointerValue(account.Host)
 	}
 
 	if account.Port != nil {
-		accountResource.Port = types.Int32Value(*account.Port)
+		accountResource.Port = types.StringPointerValue(account.Port)
 	}
 
 	if account.DatasetsMetaSyncInterval != nil {
-		accountResource.DatasetsMetaSyncInterval = types.Int32Value(*account.DatasetsMetaSyncInterval)
+		accountResource.DatasetsMetaSyncInterval = types.Int32PointerValue(account.DatasetsMetaSyncInterval)
 	}
 
 	return &accountResource

@@ -8,7 +8,7 @@ type Account struct {
 	Scope                    *string
 	Host                     *string
 	Active                   bool
-	Port                     *int32
+	Port                     *string
 	Cache                    int64
 	DatasetsMetaSyncEnabled  bool
 	DatasetsMetaSyncInterval *int32
@@ -22,23 +22,14 @@ type NewAccountParams struct {
 	Scope                    *string
 	Host                     *string
 	Active                   bool
-	Port                     *int32
+	Port                     *string
 	Cache                    int64
 	DatasetsMetaSyncEnabled  bool
 	DatasetsMetaSyncInterval *int32
 }
 
 func NewAccount(params NewAccountParams) *Account {
-	account := Account{
-		Id:                       params.Id,
-		Name:                     params.Name,
-		Description:              params.Description,
-		ProviderName:             params.ProviderName,
-		Active:                   params.Active,
-		Cache:                    params.Cache,
-		DatasetsMetaSyncEnabled:  params.DatasetsMetaSyncEnabled,
-		DatasetsMetaSyncInterval: params.DatasetsMetaSyncInterval,
-	}
+	account := Account(params)
 
 	return &account
 }

@@ -2,23 +2,23 @@
 
 _This template repository is built on the [Terraform Plugin SDK](https://github.com/hashicorp/terraform-plugin-sdk). The template repository built on the [Terraform Plugin Framework](https://github.com/hashicorp/terraform-plugin-framework) can be found at [terraform-provider-scaffolding-framework](https://github.com/hashicorp/terraform-provider-scaffolding-framework). See [Which SDK Should I Use?](https://www.terraform.io/docs/plugin/which-sdk.html) in the Terraform documentation for additional information._
 
-----
+---
 
 This is a terraform provider plugin for managing Luzmo plugins and dashboards in a simple way.
 
 _Note_: There are more luzmo resource, for this initial version this plugin just handle plugin and dashboards.
 
-
 ## Requirements
 
--	[Terraform](https://www.terraform.io/downloads.html) >= 0.13.x
--	[Go](https://golang.org/doc/install) >= 1.19
+- [Terraform](https://www.terraform.io/downloads.html) >= 0.13.x
+- [Go](https://golang.org/doc/install) >= 1.19
 
 ## Building The Provider
 
 1. Clone the repository
 1. Enter the repository directory
-1. Build the provider using the Go `install` command: 
+1. Build the provider using the Go `install` command:
+
 ```sh
 $ go install
 ```
@@ -39,7 +39,6 @@ Then commit the changes to `go.mod` and `go.sum`.
 
 ## Using the provider
 
-
 Definining provider. The port should be the Clickhouse native protocol port (9000 by default, and 9440 for Clickhouse Cloud)
 
 ```hcl
@@ -54,8 +53,8 @@ provider "luzmo" {
 In order to definte url, username and password in a safety way it is possible to define them using env vars:
 
 ```config
-TF_luzmo_api_key    = ""
-TF_luzmo_api_token  = ""
+TF_VAR_luzmo_api_key    = ""
+TF_VAR_luzmo_api_token  = ""
 ```
 
 ```hcl
@@ -123,7 +122,6 @@ locals {
   dashboard_content = jsondecode(file("${path.module}/dashboard_contents.json"))
 }
 ```
-
 
 ## Developing the Provider
 

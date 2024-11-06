@@ -36,32 +36,20 @@ type NewDatasetParams struct {
 
 func NewDataset(params NewDatasetParams) *Dataset {
 	dataset := Dataset{
-		Id:               params.Id,
-		Name:             params.Name,
-		Description:      params.Description,
-		Subtype:          params.SubType,
-		SourceDataset:    params.SourceDataset,
-		SourceSheet:      params.SourceSheet,
-		Cache:            params.Cache,
-		UpdateMetadata:   params.UpdateMetadata,
-		MetaSyncInherit:  params.MetaSyncInherit,
-		MetaSyncInterval: params.MetaSyncInterval,
-	}
-
-	if params.SubTitle != nil {
-		dataset.Subtitle = params.SubTitle
-	}
-
-	if params.Transformation != nil {
-		dataset.Transformation = params.Transformation
-	}
-
-	if params.MetaSyncEnabled != nil {
-		dataset.MetaSyncEnabled = *params.MetaSyncEnabled
-	}
-
-	if params.LastMetadataSyncAt != nil {
-		dataset.LastMetadataSyncAt = params.LastMetadataSyncAt
+		Id:                 params.Id,
+		Name:               params.Name,
+		Description:        params.Description,
+		Subtype:            params.SubType,
+		SourceDataset:      params.SourceDataset,
+		SourceSheet:        params.SourceSheet,
+		Cache:              params.Cache,
+		UpdateMetadata:     params.UpdateMetadata,
+		MetaSyncInherit:    params.MetaSyncInherit,
+		MetaSyncInterval:   params.MetaSyncInterval,
+		Subtitle:           params.SubTitle,
+		Transformation:     params.Transformation,
+		MetaSyncEnabled:    *params.MetaSyncEnabled,
+		LastMetadataSyncAt: params.LastMetadataSyncAt,
 	}
 
 	return &dataset

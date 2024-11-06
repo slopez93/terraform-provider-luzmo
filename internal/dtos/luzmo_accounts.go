@@ -10,7 +10,7 @@ type AccountResourceModel struct {
 	Scope                    types.String `tfsdk:"scope"`
 	Host                     types.String `tfsdk:"host"`
 	Active                   types.Bool   `tfsdk:"active"`
-	Port                     types.Int32  `tfsdk:"port"`
+	Port                     types.String `tfsdk:"port"`
 	Cache                    types.Int64  `tfsdk:"cache"`
 	DatasetsMetaSyncEnabled  types.Bool   `tfsdk:"datasets_meta_sync_enabled"`
 	DatasetsMetaSyncInterval types.Int32  `tfsdk:"datasets_meta_sync_interval"`
@@ -22,8 +22,8 @@ type LuzmoAccountDTO struct {
 	Active                   bool              `json:"active"`
 	Cache                    int64             `json:"cache"`
 	Synced                   bool              `json:"synced"`
-	DatasetsMetaSyncEnabled  bool              `json:"dataset_meta_sync_enabled"`
-	DatasetsMetaSyncInterval *int32            `json:"dataset_meta_sync_interval"`
+	DatasetsMetaSyncEnabled  bool              `json:"datasets_meta_sync_enabled"`
+	DatasetsMetaSyncInterval *int32            `json:"datasets_meta_sync_interval"`
 	ProviderName             string            `json:"provider"`
 	Name                     string            `json:"name"`
 	Description              map[string]string `json:"description"`
@@ -35,7 +35,7 @@ type LuzmoAccountDTO struct {
 	Expiry                   *string           `json:"expiry"`
 	Scope                    *string           `json:"scope"`
 	Host                     *string           `json:"host"`
-	Port                     *int32            `json:"port"`
+	Port                     *string           `json:"port"`
 	Version                  *string           `json:"version"`
 	PluginId                 string            `json:"plugin_id"`
 	ShareableId              string            `json:"shareable_id"`
@@ -48,10 +48,10 @@ type LuzmoCreateAccountDTO struct {
 	Scope                    *string           `json:"scope"`
 	Host                     *string           `json:"host"`
 	Active                   bool              `json:"active"`
-	Port                     *int32            `json:"port"`
+	Port                     *string           `json:"port"`
 	Cache                    int64             `json:"cache"`
-	DatasetsMetaSyncEnabled  bool              `json:"dataset_meta_sync_enabled"`
-	DatasetsMetaSyncInterval *int32            `json:"dataset_meta_sync_interval"`
+	DatasetsMetaSyncEnabled  bool              `json:"datasets_meta_sync_enabled"`
+	DatasetsMetaSyncInterval *int32            `json:"datasets_meta_sync_interval"`
 }
 
 type LuzmoUpdateAccountDTO struct {
@@ -61,8 +61,8 @@ type LuzmoUpdateAccountDTO struct {
 	Scope                    *string           `json:"scope"`
 	Host                     *string           `json:"host"`
 	Active                   bool              `json:"active"`
-	Port                     *int32            `json:"port"`
+	Port                     *string           `json:"port"`
 	Cache                    int64             `json:"cache"`
-	DatasetsMetaSyncEnabled  bool              `json:"dataset_meta_sync_enabled"`
-	DatasetsMetaSyncInterval *int32            `json:"dataset_meta_sync_interval"`
+	DatasetsMetaSyncEnabled  bool              `json:"datasets_meta_sync_enabled"`
+	DatasetsMetaSyncInterval *int32            `json:"datasets_meta_sync_interval"`
 }

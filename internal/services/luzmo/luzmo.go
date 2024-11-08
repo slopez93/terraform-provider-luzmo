@@ -15,6 +15,7 @@ const DashboardApiPath string = "securable"
 const PluginApiPath string = "plugin"
 const AccountApiPath string = "account"
 const DatasetApiPath string = "securable"
+const DataProviderApiPath string = "dataprovider"
 
 type LuzmoService struct {
 	ApiKey     string

@@ -17,6 +17,8 @@ type DatasetResourceModel struct {
 	MetaSyncInherit    types.Bool   `tfsdk:"meta_sync_inherit"`
 	MetaSyncEnabled    types.Bool   `tfsdk:"meta_sync_enabled"`
 	LastMetadataSyncAt types.String `tfsdk:"last_metadata_sync_at"`
+	DatasetId          types.String `tfsdk:"dataset_id"`
+	ProviderName       types.String `tfsdk:"provider_name"`
 }
 
 type LuzmoDatasetDTO struct {
@@ -79,4 +81,16 @@ type LuzmoUpdateDatasetDTO struct {
 	MetaSyncInterval int32             `json:"meta_sync_interval"`
 	MetaSyncInherit  bool              `json:"meta_sync_inherit"`
 	MetaSyncEnabled  bool              `json:"meta_sync_enabled"`
+}
+
+type LuzmoDataProviderCreateDatasetsDTO struct {
+	Action    string    `json:"action"`
+	AccountId string    `json:"account_id"`
+	Provider  string    `json:"provider"`
+	Datasets  *[]string `json:"datasets"`
+}
+
+type LuzmoDataProviderCreateDatasetsResponseDTO struct {
+	Count int `json:"count"`
+	Data  []LuzmoDatasetDTO
 }

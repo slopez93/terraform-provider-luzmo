@@ -115,6 +115,14 @@ func (r *DatasetResource) Schema(_ context.Context, _ resource.SchemaRequest, re
 				Description: " Last time metadata was synced was successful for the dataset.",
 				Optional:    true,
 			},
+			"dataset_id": schema.StringAttribute{
+				Description: "The dataset id.",
+				Optional:    true,
+			},
+			"provider_name": schema.StringAttribute{
+				Description: "The slug of your own plugin or one of a database. This is required for data provider datasets.",
+				Optional:    true,
+			},
 		},
 	}
 }
@@ -143,18 +151,57 @@ func (r *DatasetResource) Create(ctx context.Context, req resource.CreateRequest
 		MetaSyncInherit:    plan.MetaSyncInherit.ValueBool(),
 		MetaSyncEnabled:    plan.MetaSyncEnabled.ValueBoolPointer(),
 		LastMetadataSyncAt: plan.LastMetadataSyncAt.ValueStringPointer(),
+		DatasetId:          plan.DatasetId.ValueStringPointer(),
+		ProviderName:       plan.ProviderName.ValueStringPointer(),
 	})
 
-	datasetResponse, err := r.lzService.CreateDataset(*dataset)
+	mustBeCreatedByDataProvider, err := dataset.MustBeCreatedByDataProvider()
+
 	if err != nil {
 		resp.Diagnostics.AddError(
 			"Error Creating Luzmo Dataset",
-			"Could not create Dataset ID "+plan.ID.ValueString()+": "+err.Error(),
+			err.Error(),
 		)
 		return
 	}
 
-	plan = *r.lzService.Mapper.MapToDatasetResource(*datasetResponse)
+	if mustBeCreatedByDataProvider {
+		dataProviderResponse, err := r.lzService.CreateDatasets(*dataset)
+		if err != nil {
+			resp.Diagnostics.AddError(
+				"Error Creating Luzmo Dataset",
+				"Could not create Dataset ID "+plan.ID.ValueString()+": "+err.Error(),
+			)
+			return
+		}
+
+		dataset.Id = dataProviderResponse[0].Id
+
+		updatedDataset, err := r.lzService.UpdateDataset(*dataset)
+		if err != nil {
+			resp.Diagnostics.AddError(
+				"Error Updating Luzmo Dataset",
+				"Could not update Dataset ID "+dataset.Id+": "+err.Error(),
+			)
+			return
+		}
+
+		updatedDataset.DatasetId = dataset.DatasetId
+		updatedDataset.ProviderName = dataset.ProviderName
+
+		plan = *r.lzService.Mapper.MapToDatasetResource(*updatedDataset)
+	} else {
+		datasetResponse, err := r.lzService.CreateDataset(*dataset)
+		if err != nil {
+			resp.Diagnostics.AddError(
+				"Error Creating Luzmo Dataset",
+				"Could not create Dataset ID "+plan.ID.ValueString()+": "+err.Error(),
+			)
+			return
+		}
+
+		plan = *r.lzService.Mapper.MapToDatasetResource(*datasetResponse)
+	}
 
 	// Set state to fully populated data
 	diags = resp.State.Set(ctx, plan)
@@ -180,6 +227,39 @@ func (r *DatasetResource) Read(ctx context.Context, req resource.ReadRequest, re
 			"Could not read Dataset ID "+state.ID.ValueString()+": "+err.Error(),
 		)
 		return
+	}
+
+	datasetToCheck := models.NewDataset(models.NewDatasetParams{
+		Id:                 dataset.Id,
+		Name:               dataset.Name,
+		Description:        dataset.Description,
+		SubTitle:           dataset.Subtitle,
+		SubType:            dataset.Subtype,
+		SourceDataset:      dataset.SourceDataset,
+		SourceSheet:        dataset.SourceSheet,
+		Transformation:     dataset.Transformation,
+		Cache:              dataset.Cache,
+		UpdateMetadata:     dataset.UpdateMetadata,
+		MetaSyncInterval:   dataset.MetaSyncInterval,
+		MetaSyncInherit:    dataset.MetaSyncInherit,
+		MetaSyncEnabled:    &dataset.MetaSyncEnabled,
+		LastMetadataSyncAt: dataset.LastMetadataSyncAt,
+		DatasetId:          state.DatasetId.ValueStringPointer(),
+		ProviderName:       state.ProviderName.ValueStringPointer(),
+	})
+
+	mustBeCreatedByDataProvider, err := datasetToCheck.MustBeCreatedByDataProvider()
+	if err != nil {
+		resp.Diagnostics.AddError(
+			"Error Checking Dataset Creation Requirement",
+			err.Error(),
+		)
+		return
+	}
+
+	if mustBeCreatedByDataProvider {
+		dataset.ProviderName = state.ProviderName.ValueStringPointer()
+		dataset.DatasetId = state.DatasetId.ValueStringPointer()
 	}
 
 	state = *r.lzService.Mapper.MapToDatasetResource(*dataset)
@@ -221,7 +301,10 @@ func (r *DatasetResource) Update(ctx context.Context, req resource.UpdateRequest
 		MetaSyncInterval: *plan.MetaSyncInterval.ValueInt32Pointer(),
 		MetaSyncInherit:  plan.MetaSyncInherit.ValueBool(),
 		MetaSyncEnabled:  plan.MetaSyncEnabled.ValueBoolPointer(),
+		DatasetId:        plan.DatasetId.ValueStringPointer(),
+		ProviderName:     plan.ProviderName.ValueStringPointer(),
 	})
+
 	updatedDataset, err := r.lzService.UpdateDataset(*dataset)
 	if err != nil {
 		resp.Diagnostics.AddError(
@@ -229,6 +312,20 @@ func (r *DatasetResource) Update(ctx context.Context, req resource.UpdateRequest
 			"Could not update Dataset ID "+plan.ID.ValueString()+": "+err.Error(),
 		)
 		return
+	}
+
+	mustBeCreatedByDataProvider, err := dataset.MustBeCreatedByDataProvider()
+	if err != nil {
+		resp.Diagnostics.AddError(
+			"Error Checking Dataset Creation Requirement",
+			err.Error(),
+		)
+		return
+	}
+
+	if mustBeCreatedByDataProvider {
+		updatedDataset.DatasetId = plan.DatasetId.ValueStringPointer()
+		updatedDataset.ProviderName = plan.ProviderName.ValueStringPointer()
 	}
 
 	plan = *r.lzService.Mapper.MapToDatasetResource(*updatedDataset)

@@ -25,10 +25,12 @@ Manages a dataset.
 ### Optional
 
 - `cache` (Number) Number of seconds queries to this data connector are cached in Luzmo's caching layer. Use 0 to disable caching.
+- `dataset_id` (String) The dataset id.
 - `last_metadata_sync_at` (String) Last time metadata was synced was successful for the dataset.
 - `meta_sync_enabled` (Boolean) Indicates whether automatic metadata sync is enabled for the dataset when meta_sync_inherit=false.
 - `meta_sync_inherit` (Boolean) Indicates whether automatic metadata sync is enabled for this dataset.
 - `meta_sync_interval` (Number) Configure Metadata sync interval in hours for the dataset when meta_sync_inherit=false.
+- `provider_name` (String) The slug of your own plugin or one of a database. This is required for data provider datasets.
 - `subtitle` (String) The subtitle of the dataset.
 - `subtype` (String) The subtype of the dataset.
 - `transformation` (String) The transformation of the dataset.

@@ -52,6 +52,19 @@ func (m *Mapper) MapToDatasetResource(dataset models.Dataset) *dtos.DatasetResou
 	datasetModel.MetaSyncInherit = types.BoolValue(dataset.MetaSyncInherit)
 	datasetModel.MetaSyncEnabled = types.BoolPointerValue(&dataset.MetaSyncEnabled)
 	datasetModel.LastMetadataSyncAt = types.StringPointerValue(dataset.LastMetadataSyncAt)
+	datasetModel.DatasetId = types.StringPointerValue(dataset.DatasetId)
+	datasetModel.ProviderName = types.StringPointerValue(dataset.ProviderName)
 
 	return &datasetModel
+}
+
+func (m *Mapper) MapDataProviderResponseToDatasetResource(dataProviderDTO dtos.LuzmoDataProviderCreateDatasetsResponseDTO) ([]*models.Dataset, error) {
+	var datasets []*models.Dataset
+
+	for _, datasetDto := range dataProviderDTO.Data {
+		dataset, _ := m.MapToDataset(datasetDto)
+		datasets = append(datasets, dataset)
+	}
+
+	return datasets, nil
 }

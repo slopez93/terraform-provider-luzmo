@@ -1,5 +1,7 @@
 package models
 
+import "errors"
+
 type Dataset struct {
 	Id                 string
 	Name               string
@@ -15,6 +17,8 @@ type Dataset struct {
 	MetaSyncInherit    bool
 	MetaSyncEnabled    bool
 	LastMetadataSyncAt *string
+	DatasetId          *string
+	ProviderName       *string
 }
 
 type NewDatasetParams struct {
@@ -32,6 +36,8 @@ type NewDatasetParams struct {
 	MetaSyncInherit    bool
 	MetaSyncEnabled    *bool
 	LastMetadataSyncAt *string
+	DatasetId          *string
+	ProviderName       *string
 }
 
 func NewDataset(params NewDatasetParams) *Dataset {
@@ -50,7 +56,23 @@ func NewDataset(params NewDatasetParams) *Dataset {
 		Transformation:     params.Transformation,
 		MetaSyncEnabled:    *params.MetaSyncEnabled,
 		LastMetadataSyncAt: params.LastMetadataSyncAt,
+		DatasetId:          params.DatasetId,
+		ProviderName:       params.ProviderName,
 	}
 
 	return &dataset
+}
+
+func (d *Dataset) MustBeCreatedByDataProvider() (bool, error) {
+	hasDataset := d.DatasetId != nil
+
+	if hasDataset && d.ProviderName == nil {
+		return false, errors.New("ProviderName must be set if Dataset was created by a data provider")
+	}
+
+	return hasDataset, nil
+}
+
+func (d *Dataset) SetDatasetId(datasetId string) {
+	d.DatasetId = &datasetId
 }

@@ -17,7 +17,6 @@ func testAccountResourceConfig(accountName string, provider string) string {
 			description      			= "Account created by terraform provider test"
 			provider_name            	= "%s"
 			scope						= "scope" 
-			host						= "host"
 			active						= false
 			port						= "8080"
 			cache						= 0
@@ -44,6 +43,7 @@ func TestAccAccountResource(t *testing.T) {
 					resource.TestCheckResourceAttr("luzmo_account.account_example", "name", "Account managed by TF"),
 					resource.TestCheckResourceAttr("luzmo_account.account_example", "description", "Account created by terraform provider test"),
 					resource.TestCheckResourceAttr("luzmo_account.account_example", "provider_name", randProvider),
+					resource.TestCheckNoResourceAttr("luzmo_account.account_example", "host"),
 					resource.TestCheckResourceAttrSet("luzmo_account.account_example", "id"),
 				),
 			},

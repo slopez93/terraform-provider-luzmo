@@ -64,11 +64,15 @@ func NewDataset(params NewDatasetParams) *Dataset {
 }
 
 func (d *Dataset) MustBeCreatedByDataProvider() (bool, error) {
-	result := d.DatasetId != nil
+	hasDataset := d.DatasetId != nil
 
-	if result && d.ProviderName == nil {
+	if hasDataset && d.ProviderName == nil {
 		return false, errors.New("ProviderName must be set if Dataset was created by a data provider")
 	}
 
-	return result, nil
+	return hasDataset, nil
+}
+
+func (d *Dataset) SetDatasetId(datasetId string) {
+	d.DatasetId = &datasetId
 }

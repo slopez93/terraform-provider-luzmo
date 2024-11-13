@@ -165,6 +165,8 @@ func (r *DatasetResource) Create(ctx context.Context, req resource.CreateRequest
 		return
 	}
 
+	var datasetResource *models.Dataset
+
 	if mustBeCreatedByDataProvider {
 		dataProviderResponse, err := r.lzService.CreateDatasets(*dataset)
 		if err != nil {
@@ -189,7 +191,8 @@ func (r *DatasetResource) Create(ctx context.Context, req resource.CreateRequest
 		updatedDataset.DatasetId = dataset.DatasetId
 		updatedDataset.ProviderName = dataset.ProviderName
 
-		plan = *r.lzService.Mapper.MapToDatasetResource(*updatedDataset)
+		datasetResource = updatedDataset
+
 	} else {
 		datasetResponse, err := r.lzService.CreateDataset(*dataset)
 		if err != nil {
@@ -200,8 +203,10 @@ func (r *DatasetResource) Create(ctx context.Context, req resource.CreateRequest
 			return
 		}
 
-		plan = *r.lzService.Mapper.MapToDatasetResource(*datasetResponse)
+		datasetResource = datasetResponse
 	}
+
+	plan = *r.lzService.Mapper.MapToDatasetResource(*datasetResource)
 
 	// Set state to fully populated data
 	diags = resp.State.Set(ctx, plan)
@@ -229,38 +234,8 @@ func (r *DatasetResource) Read(ctx context.Context, req resource.ReadRequest, re
 		return
 	}
 
-	datasetToCheck := models.NewDataset(models.NewDatasetParams{
-		Id:                 dataset.Id,
-		Name:               dataset.Name,
-		Description:        dataset.Description,
-		SubTitle:           dataset.Subtitle,
-		SubType:            dataset.Subtype,
-		SourceDataset:      dataset.SourceDataset,
-		SourceSheet:        dataset.SourceSheet,
-		Transformation:     dataset.Transformation,
-		Cache:              dataset.Cache,
-		UpdateMetadata:     dataset.UpdateMetadata,
-		MetaSyncInterval:   dataset.MetaSyncInterval,
-		MetaSyncInherit:    dataset.MetaSyncInherit,
-		MetaSyncEnabled:    &dataset.MetaSyncEnabled,
-		LastMetadataSyncAt: dataset.LastMetadataSyncAt,
-		DatasetId:          state.DatasetId.ValueStringPointer(),
-		ProviderName:       state.ProviderName.ValueStringPointer(),
-	})
-
-	mustBeCreatedByDataProvider, err := datasetToCheck.MustBeCreatedByDataProvider()
-	if err != nil {
-		resp.Diagnostics.AddError(
-			"Error Checking Dataset Creation Requirement",
-			err.Error(),
-		)
-		return
-	}
-
-	if mustBeCreatedByDataProvider {
-		dataset.ProviderName = state.ProviderName.ValueStringPointer()
-		dataset.DatasetId = state.DatasetId.ValueStringPointer()
-	}
+	dataset.DatasetId = state.DatasetId.ValueStringPointer()
+	dataset.ProviderName = state.ProviderName.ValueStringPointer()
 
 	state = *r.lzService.Mapper.MapToDatasetResource(*dataset)
 

@@ -74,7 +74,7 @@ func TestAccDatasetResource(t *testing.T) {
 				),
 			},
 			// Run this test only locally, as it requires an accountId from an account linked to an existing dataset or source and a valid plugin slug.
-			// //Create and Read testing created by data provider
+			//Create and Read testing created by data provider
 			// {
 			// 	Config: testDatasetDataProviderResourceConfig("Dataset dataprovider managed by TF", accountId, slugName),
 			// 	Check: resource.ComposeAggregateTestCheckFunc(
@@ -85,7 +85,7 @@ func TestAccDatasetResource(t *testing.T) {
 			// 		resource.TestCheckResourceAttrSet("luzmo_dataset.dataset_dataprovider_example", "id"),
 			// 	),
 			// },
-			// // Update and Read testing by data provider
+			// Update and Read testing by data provider
 			// {
 			// 	Config: testDatasetDataProviderResourceConfig("Dataset dataprovider managed by TF updated", accountId, slugName),
 			// 	Check: resource.ComposeAggregateTestCheckFunc(

@@ -35,22 +35,10 @@ func (m *Mapper) MapToAccountResource(account models.Account) *dtos.AccountResou
 	accountResource.ProviderName = types.StringValue(account.ProviderName)
 	accountResource.Cache = types.Int64Value(account.Cache)
 	accountResource.DatasetsMetaSyncEnabled = types.BoolValue(account.DatasetsMetaSyncEnabled)
-
-	if account.Active != nil {
-		accountResource.Active = types.BoolPointerValue(account.Active)
-	}
-
-	if account.Scope != nil {
-		accountResource.Scope = types.StringPointerValue(account.Scope)
-	}
-
-	if account.Host != nil {
-		accountResource.Host = types.StringPointerValue(account.Host)
-	}
-
-	if account.Port != nil {
-		accountResource.Port = types.StringPointerValue(account.Port)
-	}
+	accountResource.Active = types.BoolPointerValue(account.Active)
+	accountResource.Scope = types.StringPointerValue(account.Scope)
+	accountResource.Host = types.StringPointerValue(account.Host)
+	accountResource.Port = types.StringPointerValue(account.Port)
 
 	if account.DatasetsMetaSyncInterval != nil {
 		accountResource.DatasetsMetaSyncInterval = types.Int32PointerValue(account.DatasetsMetaSyncInterval)

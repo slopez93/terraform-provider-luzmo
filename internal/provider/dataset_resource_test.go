@@ -73,6 +73,7 @@ func TestAccDatasetResource(t *testing.T) {
 					resource.TestCheckResourceAttr("luzmo_dataset.dataset_example", "name", "Dataset managed by TF updated"),
 				),
 			},
+			// Run this test only locally, as it requires an accountId from an account linked to an existing dataset or source and a valid plugin slug.
 			// //Create and Read testing created by data provider
 			// {
 			// 	Config: testDatasetDataProviderResourceConfig("Dataset dataprovider managed by TF", accountId, slugName),

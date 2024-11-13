@@ -7,10 +7,10 @@ type AccountResourceModel struct {
 	Name                     types.String `tfsdk:"name"`
 	Description              types.String `tfsdk:"description"`
 	ProviderName             types.String `tfsdk:"provider_name"`
-	Scope                    types.String `tfsdk:"scope,omitempty"`
-	Host                     types.String `tfsdk:"host,omitempty"`
-	Active                   types.Bool   `tfsdk:"active,omitempty"`
-	Port                     types.String `tfsdk:"port,omitempty"`
+	Scope                    types.String `tfsdk:"scope"`
+	Host                     types.String `tfsdk:"host"`
+	Active                   types.Bool   `tfsdk:"active"`
+	Port                     types.String `tfsdk:"port"`
 	Cache                    types.Int64  `tfsdk:"cache"`
 	DatasetsMetaSyncEnabled  types.Bool   `tfsdk:"datasets_meta_sync_enabled"`
 	DatasetsMetaSyncInterval types.Int32  `tfsdk:"datasets_meta_sync_interval"`

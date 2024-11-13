@@ -33,9 +33,12 @@ func (m *Mapper) MapToAccountResource(account models.Account) *dtos.AccountResou
 	accountResource.Name = types.StringValue(account.Name)
 	accountResource.Description = types.StringValue(account.Description)
 	accountResource.ProviderName = types.StringValue(account.ProviderName)
-	accountResource.Active = types.BoolValue(account.Active)
 	accountResource.Cache = types.Int64Value(account.Cache)
 	accountResource.DatasetsMetaSyncEnabled = types.BoolValue(account.DatasetsMetaSyncEnabled)
+
+	if account.Active != nil {
+		accountResource.Active = types.BoolPointerValue(account.Active)
+	}
 
 	if account.Scope != nil {
 		accountResource.Scope = types.StringPointerValue(account.Scope)

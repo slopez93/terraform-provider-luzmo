@@ -70,9 +70,7 @@ func (r *AccountResource) Schema(_ context.Context, _ resource.SchemaRequest, re
 			},
 			"active": schema.BoolAttribute{
 				Description: "Indicates whether queries may be sent to this database or plugin connection.",
-				Computed:    true,
 				Optional:    true,
-				Default:     booldefault.StaticBool(false),
 			},
 			"port": schema.StringAttribute{
 				Description: "Port of this connection. For relational database connections, this corresponds to the port of the database.",
@@ -116,7 +114,7 @@ func (r *AccountResource) Create(ctx context.Context, req resource.CreateRequest
 		ProviderName:             plan.ProviderName.ValueString(),
 		Scope:                    plan.Scope.ValueStringPointer(),
 		Host:                     plan.Host.ValueStringPointer(),
-		Active:                   plan.Active.ValueBool(),
+		Active:                   plan.Active.ValueBoolPointer(),
 		Port:                     plan.Port.ValueStringPointer(),
 		Cache:                    plan.Cache.ValueInt64(),
 		DatasetsMetaSyncEnabled:  plan.DatasetsMetaSyncEnabled.ValueBool(),
@@ -195,7 +193,7 @@ func (r *AccountResource) Update(ctx context.Context, req resource.UpdateRequest
 		ProviderName:             plan.ProviderName.ValueString(),
 		Scope:                    plan.Scope.ValueStringPointer(),
 		Host:                     plan.Host.ValueStringPointer(),
-		Active:                   plan.Active.ValueBool(),
+		Active:                   plan.Active.ValueBoolPointer(),
 		Port:                     plan.Port.ValueStringPointer(),
 		Cache:                    plan.Cache.ValueInt64(),
 		DatasetsMetaSyncEnabled:  plan.DatasetsMetaSyncEnabled.ValueBool(),

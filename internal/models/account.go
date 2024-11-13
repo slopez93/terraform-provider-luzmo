@@ -7,7 +7,7 @@ type Account struct {
 	ProviderName             string
 	Scope                    *string
 	Host                     *string
-	Active                   bool
+	Active                   *bool
 	Port                     *string
 	Cache                    int64
 	DatasetsMetaSyncEnabled  bool
@@ -21,7 +21,7 @@ type NewAccountParams struct {
 	ProviderName             string
 	Scope                    *string
 	Host                     *string
-	Active                   bool
+	Active                   *bool
 	Port                     *string
 	Cache                    int64
 	DatasetsMetaSyncEnabled  bool

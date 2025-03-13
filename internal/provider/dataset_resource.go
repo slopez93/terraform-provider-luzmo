@@ -111,10 +111,6 @@ func (r *DatasetResource) Schema(_ context.Context, _ resource.SchemaRequest, re
 				Computed:    true,
 				Default:     booldefault.StaticBool(false),
 			},
-			"last_metadata_sync_at": schema.StringAttribute{
-				Description: " Last time metadata was synced was successful for the dataset.",
-				Optional:    true,
-			},
 			"dataset_id": schema.StringAttribute{
 				Description: "The dataset id.",
 				Optional:    true,
@@ -137,22 +133,21 @@ func (r *DatasetResource) Create(ctx context.Context, req resource.CreateRequest
 	}
 
 	dataset := models.NewDataset(models.NewDatasetParams{
-		Id:                 plan.ID.ValueString(),
-		Name:               plan.Name.ValueString(),
-		Description:        plan.Description.ValueString(),
-		SubTitle:           plan.Subtitle.ValueStringPointer(),
-		SubType:            plan.SubType.ValueString(),
-		SourceDataset:      plan.SourceDataset.ValueString(),
-		SourceSheet:        plan.SourceSheet.ValueString(),
-		Transformation:     plan.Transformation.ValueStringPointer(),
-		Cache:              plan.Cache.ValueInt64(),
-		UpdateMetadata:     plan.UpdateMetadata.ValueBool(),
-		MetaSyncInterval:   *plan.MetaSyncInterval.ValueInt32Pointer(),
-		MetaSyncInherit:    plan.MetaSyncInherit.ValueBool(),
-		MetaSyncEnabled:    plan.MetaSyncEnabled.ValueBoolPointer(),
-		LastMetadataSyncAt: plan.LastMetadataSyncAt.ValueStringPointer(),
-		DatasetId:          plan.DatasetId.ValueStringPointer(),
-		ProviderName:       plan.ProviderName.ValueStringPointer(),
+		Id:               plan.ID.ValueString(),
+		Name:             plan.Name.ValueString(),
+		Description:      plan.Description.ValueString(),
+		SubTitle:         plan.Subtitle.ValueStringPointer(),
+		SubType:          plan.SubType.ValueString(),
+		SourceDataset:    plan.SourceDataset.ValueString(),
+		SourceSheet:      plan.SourceSheet.ValueString(),
+		Transformation:   plan.Transformation.ValueStringPointer(),
+		Cache:            plan.Cache.ValueInt64(),
+		UpdateMetadata:   plan.UpdateMetadata.ValueBool(),
+		MetaSyncInterval: *plan.MetaSyncInterval.ValueInt32Pointer(),
+		MetaSyncInherit:  plan.MetaSyncInherit.ValueBool(),
+		MetaSyncEnabled:  plan.MetaSyncEnabled.ValueBoolPointer(),
+		DatasetId:        plan.DatasetId.ValueStringPointer(),
+		ProviderName:     plan.ProviderName.ValueStringPointer(),
 	})
 
 	mustBeCreatedByDataProvider, err := dataset.MustBeCreatedByDataProvider()

@@ -16,20 +16,19 @@ func (m *Mapper) MapToDataset(datasetDto dtos.LuzmoDatasetDTO) (*models.Dataset,
 	}
 
 	dataset := models.Dataset{
-		Id:                 datasetDto.Id,
-		Name:               datasetDto.Name[config.DefaultLang],
-		Description:        datasetDto.Description[config.DefaultLang],
-		Subtitle:           &subtitle,
-		Subtype:            datasetDto.Subtype,
-		SourceDataset:      datasetDto.SourceDataset,
-		SourceSheet:        datasetDto.SourceSheet,
-		Transformation:     datasetDto.Transformation,
-		Cache:              datasetDto.Cache,
-		UpdateMetadata:     datasetDto.UpdateMetadata,
-		MetaSyncInterval:   datasetDto.MetaSyncInterval,
-		MetaSyncInherit:    datasetDto.MetaSyncInherit,
-		MetaSyncEnabled:    datasetDto.MetaSyncEnabled,
-		LastMetadataSyncAt: datasetDto.LastMetadataSyncAt,
+		Id:               datasetDto.Id,
+		Name:             datasetDto.Name[config.DefaultLang],
+		Description:      datasetDto.Description[config.DefaultLang],
+		Subtitle:         &subtitle,
+		Subtype:          datasetDto.Subtype,
+		SourceDataset:    datasetDto.SourceDataset,
+		SourceSheet:      datasetDto.SourceSheet,
+		Transformation:   datasetDto.Transformation,
+		Cache:            datasetDto.Cache,
+		UpdateMetadata:   datasetDto.UpdateMetadata,
+		MetaSyncInterval: datasetDto.MetaSyncInterval,
+		MetaSyncInherit:  datasetDto.MetaSyncInherit,
+		MetaSyncEnabled:  datasetDto.MetaSyncEnabled,
 	}
 
 	return &dataset, nil
@@ -51,7 +50,6 @@ func (m *Mapper) MapToDatasetResource(dataset models.Dataset) *dtos.DatasetResou
 	datasetModel.MetaSyncInterval = types.Int32PointerValue(&dataset.MetaSyncInterval)
 	datasetModel.MetaSyncInherit = types.BoolValue(dataset.MetaSyncInherit)
 	datasetModel.MetaSyncEnabled = types.BoolPointerValue(&dataset.MetaSyncEnabled)
-	datasetModel.LastMetadataSyncAt = types.StringPointerValue(dataset.LastMetadataSyncAt)
 	datasetModel.DatasetId = types.StringPointerValue(dataset.DatasetId)
 	datasetModel.ProviderName = types.StringPointerValue(dataset.ProviderName)
 

@@ -154,7 +154,7 @@ func (r *DatasetResource) Create(ctx context.Context, req resource.CreateRequest
 
 	if err != nil {
 		resp.Diagnostics.AddError(
-			"Error Creating Luzmo Dataset",
+			"Error Creating Luzmo Dataset ",
 			err.Error(),
 		)
 		return
@@ -170,7 +170,7 @@ func (r *DatasetResource) Create(ctx context.Context, req resource.CreateRequest
 				"Could not create Dataset ID "+plan.ID.ValueString()+": "+err.Error(),
 			)
 			return
-		}
+		}∫
 
 		dataset.Id = dataProviderResponse[0].Id
 
